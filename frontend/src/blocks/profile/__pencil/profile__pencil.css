@@ -1,0 +1,12 @@
+.profile__pencil {
+  width: 26px;
+  height: 26px;
+  padding: 47px;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.profile__pencil:hover {
+  opacity: 1;
+}

@@ -1,0 +1,11 @@
+.header__container {
+  font-family: 'Inter', Arial, sans-serif;
+  display: flex;
+  float: right;
+}
+
+@media (max-width: 530px) {
+  .header__container {
+    display: none;
+  }
+}

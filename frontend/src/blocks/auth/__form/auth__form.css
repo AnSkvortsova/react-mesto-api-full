@@ -1,0 +1,6 @@
+.auth__form {
+  min-height: 53vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

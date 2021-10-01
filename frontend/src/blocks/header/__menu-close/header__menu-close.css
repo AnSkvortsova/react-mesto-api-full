@@ -1,0 +1,25 @@
+.header__menu-close {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background: url(../../../images/menu-close.svg);
+  float: right;
+  border: none;
+  outline: none;
+}
+
+.header__menu-close:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity .2s linear;
+}
+
+@media (max-width: 530px) {
+  .header__menu-close {
+    display: block;
+    margin-top: 27px;
+    margin-right: 30px;
+    grid-area: button;
+    justify-self: end;
+  }
+}

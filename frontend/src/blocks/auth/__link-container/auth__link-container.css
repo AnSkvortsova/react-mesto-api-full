@@ -1,0 +1,10 @@
+.auth__link-container {
+  text-align: center;
+  margin: 15px 0 0;
+}
+
+@media (max-width: 530px) {
+  .auth__link-container {
+    margin: 20px 0 0;
+  }
+}

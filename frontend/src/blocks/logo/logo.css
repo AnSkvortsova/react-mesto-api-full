@@ -1,0 +1,12 @@
+.logo {
+  width: 142px;
+}
+
+@media (max-width: 530px) {
+  .logo {
+    width: 103.74px;
+    padding-top: 27px;
+    padding-left: 27px;
+    grid-area: logo;
+  }
+}

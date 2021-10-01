@@ -1,0 +1,26 @@
+.header__link-out {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  text-decoration: none;
+  padding-top: 7px;
+}
+
+.header__link-out:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity .2s linear;
+
+}
+
+@media (max-width: 530px) {
+  .header__link-out {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    margin-bottom: 40px;
+    padding: 0;
+  }
+}

@@ -1,0 +1,10 @@
+.header__container_mobile {
+  display: flex;
+}
+
+@media (max-width: 530px) {
+  .header__container_mobile {
+    grid-area: menu;
+    flex-direction: column;
+  }
+}
