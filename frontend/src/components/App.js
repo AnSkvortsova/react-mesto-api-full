@@ -161,7 +161,7 @@ function App() {
       setInfoTooltipState(true);
       if(data) {
         setInfoTooltip(true);
-        history.push('/sign-in');
+        history.push('/signin');
       } else {
         setInfoTooltip(false);
       }
@@ -210,7 +210,7 @@ function App() {
     localStorage.removeItem('jwt');
     setLoggedInState(false);
     setUserEmail('');
-    history.push('/sign-in');
+    history.push('/signin');
   }
 
  
@@ -222,15 +222,16 @@ function App() {
       onLogout={handleLogout} /> 
 
       <Switch>
-        <Route path="/sign-up">
+        <Route path="/signup">
           <Register 
           onRegisterSubmit = {handleRegisterSubmit}
           />
         </Route>
 
-        <Route path="/sign-in">
+        <Route path="/signin">
           <Login
-          onLoginSubmit = {handleLoginSubmit} />
+          onLoginSubmit = {handleLoginSubmit} 
+          />
         </Route>
 
         <ProtectedRoute

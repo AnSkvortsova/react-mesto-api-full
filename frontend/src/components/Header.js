@@ -17,12 +17,12 @@ export function Header(props) {
       <div className="header__line"></div>
       <img className="logo" src={logoPath} alt="логотип" />
       <Switch>
-        <Route path="/sign-in">
-          <Link to="/sign-up" className="header__link">Регистрация</Link>
+        <Route path="/signin">
+          <Link to="/signup" className="header__link">Регистрация</Link>
         </Route>
 
-        <Route path="/sign-up">
-          <Link to="/sign-in" className="header__link">Войти</Link>
+        <Route path="/signup">
+          <Link to="/signin" className="header__link">Войти</Link>
         </Route>
 
         <Route path="/">
@@ -31,7 +31,7 @@ export function Header(props) {
             <button className={`header__menu-close ${!isOpen ? 'header__menu-close_hidden' : ''}`} type="button" aria-label="закрыть меню" onClick={heandleCloseButton}></button>
             <div className={`header__container ${isOpen ? 'header__container_mobile' : ''}`}>
               <p className="header__email">{props.userEmail}</p>
-              <Link to="/sign-in" className="header__link-out" onClick={props.onLogout} >Выйти</Link>
+              <Link to="/signin" className="header__link-out" onClick={props.onLogout} >Выйти</Link>
             </div>
           </>
         </Route>

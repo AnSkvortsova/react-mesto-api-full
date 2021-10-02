@@ -45,7 +45,7 @@ export function Register(props) {
         <button className="auth__button" type="submit" aria-label="Зарегистрироваться">Зарегистрироваться</button>
       </form>
       <div className="auth__link-container">
-        <Link to="/sign-in" className="auth__link">Уже зарегистрированы? Войти</Link>
+        <Link to="/signin" className="auth__link">Уже зарегистрированы? Войти</Link>
       </div>
     </div> 
   ); 

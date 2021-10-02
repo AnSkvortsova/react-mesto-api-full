@@ -79,9 +79,8 @@ class Api {
 }
 
 const options = {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
+  baseUrl: 'http://localhost:3000',
   headers: {
-    authorization: '55170ba5-0ba4-4f9f-8430-310e36be1994',
     'Content-Type': 'application/json',
   }
 }
