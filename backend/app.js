@@ -32,6 +32,8 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(express.static(path.join(__dirname, 'build')));
+
 app.post(
   '/signin',
   celebrate({
@@ -59,12 +61,10 @@ app.post(
   createUser,
 );
 
-app.use(auth);
+//app.use(auth);
 
 app.use('/cards', routerCards);
 app.use('/users', routerUsers);
-
-app.use(express.static(path.join(__dirname, 'build')));
 
 app.use((req, res, next) => {
   next(new NotFound('Маршрут не найден'));
