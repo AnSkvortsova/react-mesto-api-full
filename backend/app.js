@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const helmet = require('helmet');
 
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cors = require('./middlewares/cors');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
 const { createUser, login } = require('./controllers/users');
@@ -31,6 +33,8 @@ mongoose.connect(
 app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
+app.use(requestLogger);
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -61,10 +65,12 @@ app.post(
   createUser,
 );
 
-//app.use(auth);
+app.use(auth);
 
 app.use('/cards', routerCards);
 app.use('/users', routerUsers);
+
+app.use(errorLogger);
 
 app.use((req, res, next) => {
   next(new NotFound('Маршрут не найден'));
