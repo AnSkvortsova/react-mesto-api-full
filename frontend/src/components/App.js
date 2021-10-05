@@ -89,8 +89,8 @@ function App() {
       api.getInitialCards(), 
     ]) 
     .then(([userData, cardData]) => { 
-      setCurrentUserState(userData); 
-      setCardsState(cardData); 
+      setCurrentUserState(userData.data); 
+      setCardsState(cardData.cards); 
     }) 
     .catch((err) => { 
       console.log(err) 
@@ -101,7 +101,7 @@ function App() {
   function handleUpdateUser (data) { 
     api.pushUserInfo(data) 
     .then((result) => { 
-      setCurrentUserState(result); 
+      setCurrentUserState(result.data); 
       closeAllPopups(); 
     }) 
     .catch((err) => { 
@@ -112,7 +112,7 @@ function App() {
   function handleUpdateAvatar(data) { 
     api.updateAvatar(data) 
     .then((result) => { 
-      setCurrentUserState(result); 
+      setCurrentUserState(result.data); 
       closeAllPopups(); 
     }) 
     .catch((err) => { 
@@ -124,7 +124,7 @@ function App() {
   function handleAddPlaceSubmit(data) { 
     api.pushNewCard(data) 
     .then((newCard) => { 
-      setCardsState([newCard, ...cards]); 
+      setCardsState([newCard.data, ...cards]); 
       closeAllPopups(); 
     }) 
     .catch((err) => { 
@@ -133,10 +133,10 @@ function App() {
   }; 
  
   function handleCardLike(card) { 
-    const isLiked = card.likes.some(i => i._id === currentUser._id); 
+    const isLiked = card.likes.some(i => i === currentUser._id); 
     api.setLikeCard(card._id, isLiked) 
     .then((newCard) => { 
-      setCardsState((state) => state.map((c) => c._id === card._id ? newCard : c)); 
+      setCardsState((state) => state.map(c => c._id === card._id ? newCard.data : c)); 
     }) 
     .catch((err) => { 
       console.log(err) 
@@ -162,12 +162,12 @@ function App() {
       if(data) {
         setInfoTooltip(true);
         history.push('/signin');
-      } else {
-        setInfoTooltip(false);
       }
     })
     .catch((err) => {
       console.log(err);
+      setInfoTooltipState(true);
+      setInfoTooltip(false);
     })
   };
 
@@ -176,10 +176,13 @@ function App() {
     setUserEmail(email);
     auth.authorize(password, email)
     .then((data) => {
-      if(data.token) {
-        setLoggedInState(true);
-        localStorage.setItem('jwt', data.token);
-        history.push('/');
+      if(data.status === 200) {
+				setLoggedInState(true);
+				localStorage.setItem('jwt', data.token);
+				history.push('/');
+      } else {
+        setInfoTooltipState(true);
+				setInfoTooltip(false);
       }
     })
     .catch((err) => {

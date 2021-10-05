@@ -32,10 +32,11 @@ const removeCard = (req, res, next) => {
       }
       if (card.owner === req.user._id) {
         Card.findByIdAndRemove(req.params.cardId)
-          .then((data) => res.send({ data }))
+          .then(() => res.send())
           .catch(next);
+      } else {
+        throw new Forbidden('Невозможно удалить чужие данные');
       }
-      throw new Forbidden('Невозможно удалить чужие данные');
     })
     .catch((err) => {
       if (err.name === 'CastError') {

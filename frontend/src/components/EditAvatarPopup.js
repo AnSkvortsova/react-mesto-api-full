@@ -8,7 +8,8 @@ export function EditAvatarPopup(props) {
     evt.preventDefault();
     props.onUpdateAvatar({
       avatar: avatarRef.current.value,
-    })
+    });
+    avatarRef.current.value = '';
   }
 
   return(

@@ -7,7 +7,7 @@ const { celebrate, Joi, errors } = require('celebrate');
 const helmet = require('helmet');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
+const corsOptions = require('./middlewares/corsOptions');
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
 const { createUser, login } = require('./controllers/users');
@@ -34,7 +34,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors());
+app.use(corsOptions);
 
 app.use(express.static(path.join(__dirname, 'build')));
 

@@ -13,68 +13,68 @@ class Api {
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    })
-    .then(response => this._checkResult(response));
+			credentials: 'include',
+			headers: this._headers,
+		}).then((response) => this._checkResult(response));
   };
 
   pushUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        about: data.about,
-      })
-    })
-    .then(response => this._checkResult(response));
+			method: 'PATCH',
+			credentials: 'include',
+			headers: this._headers,
+			body: JSON.stringify({
+				name: data.name,
+				about: data.about,
+			}),
+		}).then((response) => this._checkResult(response));
   };
   
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    })
-    .then(response => this._checkResult(response));
+			credentials: 'include',
+			headers: this._headers,
+		}).then((response) => this._checkResult(response));
   };
 
   pushNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        link: data.link,
-      })
-    })
-    .then(response => this._checkResult(response));
+			method: 'POST',
+			credentials: 'include',
+			headers: this._headers,
+			body: JSON.stringify({
+				name: data.name,
+				link: data.link,
+			}),
+		}).then((response) => this._checkResult(response));
   };
 
   setLikeCard(id, isLike) {
     const status = isLike ? 'DELETE' : 'PUT'
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-      method: status,
-      headers: this._headers,
-    })
-    .then(response => this._checkResult(response));
+			method: status,
+			credentials: 'include',
+			headers: this._headers,
+		}).then((response) => this._checkResult(response));
   };
 
   removeCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
-      method: 'DELETE',
-      headers: this._headers,
-    })
-    .then(response => this._checkResult(response));
+			method: 'DELETE',
+			credentials: 'include',
+			headers: this._headers,
+		}).then();
   };
 
   updateAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: data.avatar,
-      })
-    })
-    .then(response => this._checkResult(response));
+			method: 'PATCH',
+			credentials: 'include',
+			headers: this._headers,
+			body: JSON.stringify({
+				avatar: data.avatar,
+			}),
+		}).then((response) => this._checkResult(response));
   }
 }
 

@@ -1,5 +1,4 @@
 export function InfoTooltip(props) {
-  
   return(
     <div className={`popup popup_type_register ${props.isOpen ? 'popup_opend' : ''}`}>
       <div className="popup__container">
