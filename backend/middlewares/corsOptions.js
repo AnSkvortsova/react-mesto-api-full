@@ -1,4 +1,11 @@
-const allowedCors = ['http://localhost:3000', 'http://localhost:3001'];
+const allowedCors = [
+  'https://workofplace.nomoredomains.club',
+  'http://workofplace.nomoredomains.club',
+  'https://api.workofplace.nomoredomains.club',
+  'http://api.workofplace.nomoredomains.club',
+  'http://localhost:3000',
+  'http://localhost:3001',
+];
 
 module.exports = (req, res, next) => {
   const { origin } = req.headers;

@@ -79,7 +79,7 @@ class Api {
 }
 
 const options = {
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.workofplace.nomoredomains.club',
   headers: {
     'Content-Type': 'application/json',
   }

@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'https://api.workofplace.nomoredomains.club';
 
 const checkResult = (response) => {
   if(response.ok) {
