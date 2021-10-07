@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 
@@ -37,6 +39,12 @@ app.use(requestLogger);
 app.use(corsOptions);
 
 app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post(
   '/signin',

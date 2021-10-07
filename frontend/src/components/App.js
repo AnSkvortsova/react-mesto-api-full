@@ -17,7 +17,7 @@ import { InfoTooltip } from './InfoTooltip';
 import * as auth from '../utils/auth';
  
 function App() { 
-  const history = useHistory();
+  const history = useHistory({forceRefresh: true});
 
   // попапы 
   const [isEditProfilePopupOpen, setEditProfileState] = useState(false); 
@@ -113,6 +113,7 @@ function App() {
     api.updateAvatar(data) 
     .then((result) => { 
       setCurrentUserState(result.data); 
+      console.log(result.data)
       closeAllPopups(); 
     }) 
     .catch((err) => { 
@@ -179,7 +180,7 @@ function App() {
       if(data.status === 200) {
 				setLoggedInState(true);
 				localStorage.setItem('jwt', data.token);
-				history.push('/');
+				history.go('/');
       } else {
         setInfoTooltipState(true);
 				setInfoTooltip(false);
@@ -217,51 +218,74 @@ function App() {
   }
 
  
-  return ( 
-    <CurrentUserContext.Provider value={currentUser}> 
-    <div className="page"> 
-      <Header 
-      userEmail={userEmail}
-      onLogout={handleLogout} /> 
+  return (
+		<CurrentUserContext.Provider value={currentUser}>
+			<div className='page'>
+				<Header userEmail={userEmail} onLogout={handleLogout} />
 
-      <Switch>
-        <Route path="/signup">
-          <Register 
-          onRegisterSubmit = {handleRegisterSubmit}
-          />
-        </Route>
+				<Switch>
+					<Route path='/signup'>
+						<Register onRegisterSubmit={handleRegisterSubmit} />
+					</Route>
 
-        <Route path="/signin">
-          <Login
-          onLoginSubmit = {handleLoginSubmit} 
-          />
-        </Route>
+					<Route path='/signin'>
+						<Login onLoginSubmit={handleLoginSubmit} />
+					</Route>
 
-        <ProtectedRoute
-          isLoggedIn = {loggedIn} path = "/" render = {() => {
-            return <Main  
-            onEditProfile = {handleEditProfileClick}  
-            onAddPlace = {handleAddPlaceClick} 
-            onEditAvatar = {handleEditAvatarClick} 
-            cards = {cards} 
-            onCardClick = {handleCardClick} 
-            onCardLike = {handleCardLike} 
-            onDeleteClick = {handleDeleteClick} 
-            onCardDelete = {handleCardDelete} />;
-          }} />
-      </Switch>
- 
-      <Footer /> 
- 
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} /> 
-      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} /> 
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} /> 
-      <ImagePopup card={!!selectedCard && selectedCard} onClose={closeAllPopups} /> 
-      <ConfirmPopup isOpen={removedCard} onClose={closeAllPopups} onCardDelete={handleCardDelete} /> 
-      <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isInfoTooltip={infoTooltip} />
-    </div> 
-    </CurrentUserContext.Provider> 
-  ); 
+					<ProtectedRoute
+						isLoggedIn={loggedIn}
+						path='/'
+						render={() => {
+							return (
+								<Main
+									onEditProfile={handleEditProfileClick}
+									onAddPlace={handleAddPlaceClick}
+									onEditAvatar={handleEditAvatarClick}
+									cards={cards}
+									onCardClick={handleCardClick}
+									onCardLike={handleCardLike}
+									onDeleteClick={handleDeleteClick}
+									onCardDelete={handleCardDelete}
+								/>
+							);
+						}}
+					/>
+				</Switch>
+
+				<Footer />
+
+				<EditProfilePopup
+					isOpen={isEditProfilePopupOpen}
+					onClose={closeAllPopups}
+					onUpdateUser={handleUpdateUser}
+				/>
+				<AddPlacePopup
+					isOpen={isAddPlacePopupOpen}
+					onClose={closeAllPopups}
+					onAddPlace={handleAddPlaceSubmit}
+				/>
+				<EditAvatarPopup
+					isOpen={isEditAvatarPopupOpen}
+					onClose={closeAllPopups}
+					onUpdateAvatar={handleUpdateAvatar}
+				/>
+				<ImagePopup
+					card={!!selectedCard && selectedCard}
+					onClose={closeAllPopups}
+				/>
+				<ConfirmPopup
+					isOpen={removedCard}
+					onClose={closeAllPopups}
+					onCardDelete={handleCardDelete}
+				/>
+				<InfoTooltip
+					isOpen={isInfoTooltipOpen}
+					onClose={closeAllPopups}
+					isInfoTooltip={infoTooltip}
+				/>
+			</div>
+		</CurrentUserContext.Provider>
+	); 
 } 
  
 export default App;

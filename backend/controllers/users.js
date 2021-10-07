@@ -1,3 +1,4 @@
+const { NODE_ENV, JWT_SECRET } = process.env;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -10,24 +11,24 @@ const Unauthorized = require('../errors/Unauthorized');
 const createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
 
-  bcrypt.hash(password, 10).then((hash) => User
-    .create({ name, about, avatar, email, password: hash })
-    .then((user) => res.send({
-      name: user.name,
-      about: user.about,
-      avatar: user.avatar,
-      email: user.email,
-    }))
-    .catch((err) => {
-      if (err.name === 'MongoServerError' && err.code === 11000) {
-        next(new Conflict('Пользователь уже существует'));
-      }
-      if (err.name === 'ValidationError') {
-        next(new BadRequest('Переданы некорректные данные'));
-      } else {
-        next(err);
-      }
-    }));
+  bcrypt.hash(password, 10)
+    .then((hash) => User.create({ name, about, avatar, email, password: hash })
+      .then((user) => res.send({
+        name: user.name,
+        about: user.about,
+        avatar: user.avatar,
+        email: user.email,
+      }))
+      .catch((err) => {
+        if (err.name === 'MongoServerError' && err.code === 11000) {
+          next(new Conflict('Пользователь уже существует'));
+        }
+        if (err.name === 'ValidationError') {
+          next(new BadRequest('Переданы некорректные данные'));
+        } else {
+          next(err);
+        }
+      }));
 };
 
 const login = (req, res, next) => {
@@ -35,9 +36,11 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'secret_key', {
-        expiresIn: '7d',
-      });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        { expiresIn: '7d' },
+      );
       res
         .cookie('jwt', token, {
           httpOnly: true,

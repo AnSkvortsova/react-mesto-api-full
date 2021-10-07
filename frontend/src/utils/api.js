@@ -79,10 +79,10 @@ class Api {
 }
 
 const options = {
-  baseUrl: 'https://api.workofplace.nomoredomains.club',
-  headers: {
-    'Content-Type': 'application/json',
-  }
-}
+	baseUrl: 'https://api.workofplace.nomoredomains.club',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+};
 const api = new Api(options);
 export default api;
