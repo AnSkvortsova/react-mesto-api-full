@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const express = require('express');
-const path = require('path');
 
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -37,8 +36,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
 app.use(corsOptions);
-
-app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
